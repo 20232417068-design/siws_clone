@@ -1,0 +1,10 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# Allow access to public folders
+RewriteRule ^assets/(.*)$ assets/$1 [L]
+RewriteRule ^includes/(.*)$ includes/$1 [L]
+RewriteRule ^admin/(.*)$ admin/$1 [L]
+RewriteRule ^uploads/(.*)$ uploads/$1 [L]
+RewriteRule ^Student/(.*)$ Student/$1 [L]
+RewriteRule ^courses/(.*)$ courses/$1 [L]

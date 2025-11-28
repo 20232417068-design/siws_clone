@@ -1,13 +1,12 @@
 FROM php:8.2-apache
 
-# Enable Apache rewrite module
 RUN a2enmod rewrite
 
-# Copy project files to Apache folder
+# Allow .htaccess file
+RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
+
 COPY . /var/www/html/
 
-# Set working directory
 WORKDIR /var/www/html/
 
-# Expose port
 EXPOSE 80
