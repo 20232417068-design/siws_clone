@@ -1,8 +1,7 @@
-# Enable rewrite engine
 RewriteEngine On
 RewriteBase /
 
-# Allow access to asset folders (prevent infinite redirect)
+# Allow assets to load properly (no redirects)
 RewriteRule ^assets/ - [L]
 RewriteRule ^uploads/ - [L]
 RewriteRule ^includes/ - [L]
@@ -12,10 +11,10 @@ RewriteRule ^courses/ - [L]
 RewriteRule ^sql/ - [L]
 RewriteRule ^process/ - [L]
 
-# Do not rewrite actual file requests
+# Stop rewrite if real file exists
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule .* - [L]
 
-# Do not rewrite actual directory requests
+# Stop rewrite if directory exists
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule .* - [L]
