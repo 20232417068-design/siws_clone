@@ -1,7 +1,10 @@
 RewriteEngine On
 RewriteBase /
 
-# Allow assets to load properly (no redirects)
+# ----------- FIX FOR RENDER (MOST IMPORTANT) --------------
+RewriteOptions AllowNoSlash
+
+# Do not rewrite asset files
 RewriteRule ^assets/ - [L]
 RewriteRule ^uploads/ - [L]
 RewriteRule ^includes/ - [L]
@@ -11,10 +14,10 @@ RewriteRule ^courses/ - [L]
 RewriteRule ^sql/ - [L]
 RewriteRule ^process/ - [L]
 
-# Stop rewrite if real file exists
+# Stop rewrite if file exists
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule .* - [L]
 
-# Stop rewrite if directory exists
+# Stop rewrite if folder exists
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule .* - [L]
