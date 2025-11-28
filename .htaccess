@@ -1,5 +1,6 @@
 # Enable rewrite engine
 RewriteEngine On
+RewriteBase /
 
 # Allow access to asset folders (prevent infinite redirect)
 RewriteRule ^assets/ - [L]
