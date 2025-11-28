@@ -2,13 +2,20 @@
 if (session_status() === PHP_SESSION_NONE) session_start();
 $current = basename($_SERVER['PHP_SELF']);
 
-// Auto-detect base URL (works for localhost AND Render)
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
-$baseURL = $protocol . $_SERVER['HTTP_HOST'] . '/';
+// Detect if running on localhost (XAMPP)
+$isLocalhost =
+    strpos($_SERVER['HTTP_HOST'], 'localhost') !== false ||
+    strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false;
 
-// If running on localhost inside folder "siws_clone"
-if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false) {
-    $baseURL .= 'siws_clone/';
+// Force HTTPS on Render
+if ($isLocalhost) {
+    // Localhost → use HTTP and folder name
+    $protocol = "http://";
+    $baseURL = $protocol . $_SERVER['HTTP_HOST'] . "/siws_clone/";
+} else {
+    // Render → always HTTPS
+    $protocol = "https://";
+    $baseURL = $protocol . $_SERVER['HTTP_HOST'] . "/";
 }
 ?>
 <!DOCTYPE html>
@@ -34,7 +41,9 @@ if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false) {
       <p>N.R. Swamy College of Commerce & Economics and Smt. Thirumalai College of Science</p>
       <p class="naac">NAAC Re-Accredited A Grade with 3.15 CGPA</p>
       <p class="meta">College Code 311 | AISHE CODE C-34030 | Wadala, Mumbai 400031</p>
-      <a class="site-link" href="https://www.siwscollege.edu.in" target="_blank" rel="noopener">www.siwscollege.edu.in</a>
+      <a class="site-link" href="https://www.siwscollege.edu.in" target="_blank" rel="noopener">
+        www.siwscollege.edu.in
+      </a>
     </div>
   </div>
 
