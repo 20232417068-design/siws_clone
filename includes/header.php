@@ -2,8 +2,14 @@
 if (session_status() === PHP_SESSION_NONE) session_start();
 $current = basename($_SERVER['PHP_SELF']);
 
-// Dynamically detect base URL for localhost or server
-$baseURL = 'http://' . $_SERVER['HTTP_HOST'] . '/siws_clone/';
+// Auto-detect base URL (works for localhost AND Render)
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
+$baseURL = $protocol . $_SERVER['HTTP_HOST'] . '/';
+
+// If running on localhost inside folder "siws_clone"
+if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false) {
+    $baseURL .= 'siws_clone/';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,10 +18,10 @@ $baseURL = 'http://' . $_SERVER['HTTP_HOST'] . '/siws_clone/';
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SIWS College (Autonomous)</title>
 
-  <!-- ✅ Dynamic CSS path -->
+  <!-- CSS -->
   <link rel="stylesheet" href="<?php echo $baseURL; ?>assets/css/style.css">
 
-  <!-- ✅ Optional favicon -->
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="<?php echo $baseURL; ?>assets/images/siws-logo.png">
 </head>
 
